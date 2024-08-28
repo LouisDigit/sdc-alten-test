@@ -3,19 +3,17 @@ import { Link } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
   return (
-    <div className="border-r h-[calc(100vh-96px)]">
-      <nav>
-        <ul>
-          <SidebarLink href="/">
-            <HomeIcon /> Accueil
-          </SidebarLink>
-          <SidebarLink href="/products">
-            <BarcodeIcon />
-            Produits
-          </SidebarLink>
-        </ul>
-      </nav>
-    </div>
+    <nav className="border-r pr-3 flex flex-col py-3">
+      <ul>
+        <SidebarLink href="/">
+          <HomeIcon /> Accueil
+        </SidebarLink>
+        <SidebarLink href="/products">
+          <BarcodeIcon />
+          Produits
+        </SidebarLink>
+      </ul>
+    </nav>
   );
 };
 
