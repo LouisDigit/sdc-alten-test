@@ -1,9 +1,9 @@
 import { BarcodeIcon, HomeIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
   return (
-    <nav className="border-r pr-3 flex flex-col py-3">
+    <nav className="border-r flex flex-col py-3">
       <ul>
         <SidebarLink href="/">
           <HomeIcon /> Accueil
@@ -26,7 +26,8 @@ const SidebarLink = ({
   href: string;
   children: React.ReactNode;
 }) => {
-  const isActive = false;
+  const location = useLocation();
+  const isActive = location.pathname === href;
 
   return (
     <li

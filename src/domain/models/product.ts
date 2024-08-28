@@ -17,3 +17,12 @@ export const ProductSchema = z.object({
 });
 
 export type Product = z.infer<typeof ProductSchema>;
+
+export const ProductInsertSchema = ProductSchema.pick({
+  name: true,
+  description: true,
+  price: true,
+  category: true,
+});
+
+export type ProductInsert = z.infer<typeof ProductInsertSchema>;
