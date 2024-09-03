@@ -3,10 +3,12 @@ import { Outlet } from "react-router-dom";
 import Container from "@/presentation/components/layout/container";
 import Sidebar from "@/presentation/components/sidebar";
 import Header from "@/presentation/components/header";
+import { Toaster } from "@/presentation/components/ui/toaster";
 
 const Layout: React.FC = () => {
   return (
     <>
+      <Toaster />
       <Header />
       <main>
         <Container>
