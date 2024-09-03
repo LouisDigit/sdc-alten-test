@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:root@localhost:8889/sdc-alten-test"
+}
+
+model Product {
+  id              Int      @id @default(autoincrement())
+  code            String
+  name            String
+  description     String
+  image           String
+  category        String
+  price           Float
+  quantity        Int
+  internalReference String
+  shellId         Int
+  inventoryStatus InventoryStatus
+  rating          Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+enum InventoryStatus {
+  INSTOCK
+  LOWSTOCK
+  OUTOFSTOCK
+}
