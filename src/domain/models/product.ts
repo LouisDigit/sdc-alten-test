@@ -26,3 +26,12 @@ export const ProductInsertSchema = ProductSchema.pick({
 });
 
 export type ProductInsert = z.infer<typeof ProductInsertSchema>;
+
+export const ProductUpdateSchema = ProductSchema.pick({
+  name: true,
+  description: true,
+  price: true,
+  category: true,
+});
+
+export type ProductUpdate = z.infer<typeof ProductUpdateSchema>;

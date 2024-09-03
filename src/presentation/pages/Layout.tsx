@@ -10,11 +10,11 @@ const Layout: React.FC = () => {
       <Header />
       <main>
         <Container>
-          <div className="flex h-full flex-row min-h-[calc(100vh-5rem)]">
+          <div className="flex w-full h-full flex-row min-h-[calc(100vh-5rem)]">
             <Sidebar />
-            <Container className="flex-1 py-5">
+            <div className="flex-1 md:px-3">
               <Outlet />
-            </Container>
+            </div>
           </div>
         </Container>
       </main>
