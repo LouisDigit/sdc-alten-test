@@ -1,14 +1,10 @@
-import { Product } from "../domain/Product";
-import prisma from "../prismaClient";
+import { IProductRepository } from "../interfaces/IProductRepository";
+import { Product } from "../entities/Product";
 
 export class UpdateProduct {
-  async execute(id: number, data: Partial<Product>) {
-    return prisma.product.update({
-      where: { id },
-      data: {
-        ...data,
-        updatedAt: Date.now(),
-      },
-    });
+  constructor(private productRepository: IProductRepository) {}
+
+  async execute(id: number, data: Partial<Product>): Promise<Product | null> {
+    return this.productRepository.update(id, data);
   }
 }

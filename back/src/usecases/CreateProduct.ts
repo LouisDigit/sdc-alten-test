@@ -1,32 +1,10 @@
-import { Product } from "../domain/Product";
-import prisma from "../prismaClient";
+import { IProductRepository } from "../interfaces/IProductRepository";
+import { Product } from "../entities/Product";
 
 export class CreateProduct {
-  async execute(
-    data: Omit<Product, "id" | "createdAt" | "updatedAt">
-  ): Promise<Product> {
-    const createdProduct = await prisma.product.create({
-      data: {
-        ...data,
-      },
-    });
+  constructor(private productRepository: IProductRepository) {}
 
-    // Mapping Prisma Product to Domain Product
-    return new Product(
-      createdProduct.id,
-      createdProduct.code,
-      createdProduct.name,
-      createdProduct.description,
-      createdProduct.image,
-      createdProduct.category,
-      createdProduct.price,
-      createdProduct.quantity,
-      createdProduct.internalReference,
-      createdProduct.shellId,
-      createdProduct.inventoryStatus,
-      createdProduct.rating,
-      createdProduct.createdAt,
-      createdProduct.updatedAt
-    );
+  async execute(data: Omit<Product, "id">): Promise<Product> {
+    return this.productRepository.create(data);
   }
 }

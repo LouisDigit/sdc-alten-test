@@ -1,10 +1,9 @@
-import prisma from "../prismaClient";
+import { IProductRepository } from "../interfaces/IProductRepository";
 
 export class DeleteProduct {
-  async execute(id: number) {
-    await prisma.product.delete({
-      where: { id },
-    });
-    return true;
+  constructor(private productRepository: IProductRepository) {}
+
+  async execute(id: number): Promise<void> {
+    await this.productRepository.delete(id);
   }
 }

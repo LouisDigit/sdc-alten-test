@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:root@localhost:8889/sdc-alten-test"
+  url      = env("DATABASE_URL")
 }
 
 model Product {
