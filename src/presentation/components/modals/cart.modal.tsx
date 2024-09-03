@@ -9,14 +9,9 @@ import ProductCard from "../product-card";
 interface CartModalProps {
   isOpen: boolean;
   onClose: () => void;
-  loading: boolean;
 }
 
-export const CartModal: React.FC<CartModalProps> = ({
-  isOpen,
-  onClose,
-  loading,
-}) => {
+export const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
   const cart = useCart();
   const [isMounted, setIsMounted] = useState<boolean>(false);
 

@@ -1,4 +1,4 @@
-import { BarcodeIcon, HomeIcon } from "lucide-react";
+import { BarcodeIcon, Contact2Icon, HomeIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
@@ -11,6 +11,10 @@ const Sidebar: React.FC = () => {
         <SidebarLink href="/products">
           <BarcodeIcon />
           Produits
+        </SidebarLink>
+        <SidebarLink href="/contact">
+          <Contact2Icon />
+          Contact
         </SidebarLink>
       </ul>
     </nav>

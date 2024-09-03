@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 
 const Header: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const cart = useCart();
 
   useEffect(() => {
@@ -18,11 +17,8 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <CartModal
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        loading={loading}
-      />
+      <CartModal isOpen={open} onClose={() => setOpen(false)} />
+
       <header className="h-24 border-b">
         <Container>
           <div className="flex md:flex-row justify-between items-center py-3">

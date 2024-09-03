@@ -14,7 +14,7 @@ const Layout: React.FC = () => {
         <Container>
           <div className="flex w-full h-full flex-row min-h-[calc(100vh-5rem)]">
             <Sidebar />
-            <div className="flex-1 md:px-3">
+            <div className="flex-1 md:px-3 py-3">
               <Outlet />
             </div>
           </div>
