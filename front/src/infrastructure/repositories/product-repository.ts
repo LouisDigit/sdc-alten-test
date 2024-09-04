@@ -1,10 +1,13 @@
 import { IProductRepository } from "@/application/repositories/product-repository.interface";
 import { Product } from "@/domain/models/product";
+import { apiClient } from "../api/client";
 
 export class ProductRepository implements IProductRepository {
   constructor() {}
 
   async getProducts(): Promise<Product[]> {
-    return [];
+    const response = await apiClient.get("/products");
+    console.log(response);
+    return response.data;
   }
 }
