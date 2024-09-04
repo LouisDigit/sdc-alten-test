@@ -13,7 +13,8 @@ import {
   FormMessage,
 } from "../ui/form";
 import { useForm } from "react-hook-form";
-import { Product, ProductUpdateSchema } from "@/domain/models/product";
+import { ProductUpdateSchema } from "@/domain/models/product";
+import { Product } from "@/domain/entities/product";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 

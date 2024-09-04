@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-import { Product } from "@/domain/models/product";
+import { Product } from "@/domain/entities/product";
 
 interface CartStore {
   items: Product[];

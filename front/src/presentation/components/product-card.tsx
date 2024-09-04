@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Product } from "@/domain/models/product";
+import { Product } from "@/domain/entities/product";
 
 import { Button } from "@/presentation/components/ui/button";
 import { UpdateProductModal } from "./modals/edit-product.modal";
