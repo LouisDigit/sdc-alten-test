@@ -12,7 +12,7 @@ export class Product {
     public shellId: number,
     public inventoryStatus: "INSTOCK" | "LOWSTOCK" | "OUTOFSTOCK",
     public rating: number,
-    public createdAt: Date,
-    public updatedAt: Date
+    public createdAt: number,
+    public updatedAt: number
   ) {}
 }
