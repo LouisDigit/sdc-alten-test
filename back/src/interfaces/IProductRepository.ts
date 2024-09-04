@@ -5,5 +5,5 @@ export interface IProductRepository {
   findById(id: number): Promise<Product | null>;
   findAll(): Promise<Product[]>;
   update(id: number, data: Partial<Product>): Promise<Product | null>;
-  delete(id: number): Promise<void>;
+  delete(id: number): Promise<Product>;
 }

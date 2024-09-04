@@ -59,6 +59,8 @@ export const deleteProduct = async (
   res: Response
 ): Promise<Response> => {
   const deleteProductUseCase = new DeleteProduct(productRepository);
-  await deleteProductUseCase.execute(Number(req.params.id));
-  return res.status(204).send();
+  const deletedProduct = await deleteProductUseCase.execute(
+    Number(req.params.id)
+  );
+  return res.status(204).json(deletedProduct);
 };

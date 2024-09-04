@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Product } from "@/domain/entities/product";
+import { Product } from "@/domain/models/product";
 
 import { Button } from "@/presentation/components/ui/button";
 import { UpdateProductModal } from "./modals/edit-product.modal";
 import { DeleteProductModal } from "./modals/delete-product.modal";
 import useCart from "@/presentation/hooks/use-cart";
 import { useToast } from "@/presentation/hooks/use-toast";
+import { ProductController } from "../controllers/ProductController";
 
 interface ProductCardProps {
   product: Product;
@@ -22,7 +23,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const { toast } = useToast();
   const cart = useCart();
 
-  const deleteProduct = () => {};
+  const productController = new ProductController();
+
+  const deleteProduct = () => {
+    productController.deleteProduct(product.id);
+    setOpenDeleteModal(false);
+    toast({
+      title: "Supprimé",
+      description: "Produit supprimé du catalogue",
+    });
+  };
 
   const onAddToCart = () => {
     const result = cart.addItem(product);

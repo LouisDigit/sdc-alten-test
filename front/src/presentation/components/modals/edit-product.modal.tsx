@@ -14,7 +14,7 @@ import {
 } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { ProductUpdateSchema } from "@/domain/models/product";
-import { Product } from "@/domain/entities/product";
+import { Product } from "@/domain/models/product";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 

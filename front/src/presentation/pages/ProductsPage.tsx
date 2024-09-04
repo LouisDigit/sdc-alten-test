@@ -3,7 +3,7 @@ import { Separator } from "@/presentation/components/ui/separator";
 import ProductCard from "../components/product-card";
 import { CreateProductModal } from "@/presentation/components/modals/create-product.modal";
 import { useEffect, useState } from "react";
-import { Product } from "@/domain/entities/product";
+import { Product } from "@/domain/models/product";
 import { ProductController } from "@/presentation/controllers/ProductController";
 
 const ProductsPage = () => {
@@ -19,7 +19,7 @@ const ProductsPage = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [products]);
 
   return (
     <>
@@ -36,8 +36,8 @@ const ProductsPage = () => {
         <Separator />
         <ul className="flex flex-col mt-3 gap-2">
           {products.map((product) => (
-            <li>
-              <ProductCard key={product.id} product={product} />
+            <li key={product.id}>
+              <ProductCard product={product} />
             </li>
           ))}
         </ul>
