@@ -1,6 +1,6 @@
 "use client";
 import * as z from "zod";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 import { Modal } from "@/presentation/components/ui/modal";
 import { Button } from "@/presentation/components/ui/button";
@@ -17,6 +17,15 @@ import { ProductUpdateSchema } from "@/domain/models/product";
 import { Product } from "@/domain/models/product";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { ProductController } from "@/presentation/controllers/ProductController";
 
 interface UpdateProductModalProps {
   isOpen: boolean;
@@ -32,6 +41,8 @@ export const UpdateProductModal: React.FC<UpdateProductModalProps> = ({
   product,
 }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
+  const productController = new ProductController();
 
   const form = useForm<z.infer<typeof ProductUpdateSchema>>({
     resolver: zodResolver(ProductUpdateSchema),
@@ -40,10 +51,18 @@ export const UpdateProductModal: React.FC<UpdateProductModalProps> = ({
       price: product.price,
       description: product.description,
       category: product.category,
+      inventoryStatus: product.inventoryStatus,
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof ProductUpdateSchema>) => {};
+  const onSubmit = async (values: z.infer<typeof ProductUpdateSchema>) => {
+    startTransition(() => {
+      console.log(values);
+      productController.updateProduct(product.id, values);
+    });
+
+    onClose();
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -71,7 +90,7 @@ export const UpdateProductModal: React.FC<UpdateProductModalProps> = ({
                     <FormLabel>Name</FormLabel>
                     <FormControl>
                       <Input
-                        disabled={loading}
+                        disabled={isPending}
                         placeholder="name..."
                         {...field}
                       />
@@ -89,7 +108,7 @@ export const UpdateProductModal: React.FC<UpdateProductModalProps> = ({
                     <FormControl>
                       <Input
                         type="number"
-                        disabled={loading}
+                        disabled={isPending}
                         placeholder="price..."
                         {...field}
                       />
@@ -105,8 +124,8 @@ export const UpdateProductModal: React.FC<UpdateProductModalProps> = ({
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input
-                        disabled={loading}
+                      <Textarea
+                        disabled={isPending}
                         placeholder="description..."
                         {...field}
                       />
@@ -123,7 +142,7 @@ export const UpdateProductModal: React.FC<UpdateProductModalProps> = ({
                     <FormLabel>Category</FormLabel>
                     <FormControl>
                       <Input
-                        disabled={loading}
+                        disabled={isPending}
                         placeholder="category..."
                         {...field}
                       />
@@ -132,11 +151,38 @@ export const UpdateProductModal: React.FC<UpdateProductModalProps> = ({
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="inventoryStatus"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Statut inventaire</FormLabel>
+                    <FormControl>
+                      <Select disabled={isPending} {...field}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Statut inventaire" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="INSTOCK">INSTOCK</SelectItem>
+                          <SelectItem value="LOWSTOCK">LOWSTOCK</SelectItem>
+                          <SelectItem value="OUTOFSTOCK">OUTOFSTOCK</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-                <Button disabled={loading} variant="outline" onClick={onClose}>
+                <Button
+                  disabled={isPending}
+                  variant="outline"
+                  onClick={onClose}
+                >
                   Cancel
                 </Button>
-                <Button disabled={loading} type="submit">
+                <Button disabled={isPending} type="submit">
                   Update
                 </Button>
               </div>

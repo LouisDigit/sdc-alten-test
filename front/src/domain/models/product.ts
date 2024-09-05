@@ -6,7 +6,8 @@ export const ProductSchema = z.object({
   name: z.string(),
   description: z.string(),
   image: z.string(),
-  price: z.number(),
+  // price number or string
+  price: z.union([z.number(), z.string()]),
   category: z.string(),
   createdAt: z.number(),
   updatedAt: z.number(),
@@ -32,6 +33,7 @@ export const ProductUpdateSchema = ProductSchema.pick({
   description: true,
   price: true,
   category: true,
+  inventoryStatus: true,
 });
 
 export type ProductUpdate = z.infer<typeof ProductUpdateSchema>;
