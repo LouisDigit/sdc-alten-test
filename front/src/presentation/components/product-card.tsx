@@ -10,8 +10,10 @@ import { ProductController } from "../controllers/ProductController";
 import { Badge } from "./ui/badge";
 import Rating from "./ui/rating";
 
+type ProductCart = Product & { quantity: number };
+
 interface ProductCardProps {
-  product: Product;
+  product: ProductCart;
   inCart?: boolean;
 }
 
@@ -37,7 +39,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const onAddToCart = () => {
-    const result = cart.addItem(product);
+    const result = cart.addItem({ ...product, quantity: 1 });
     if (result) {
       toast({
         title: "Ajouté",
@@ -91,12 +93,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </>
             )}
             {inCart ? (
-              <Button
-                variant="destructive"
-                onClick={() => cart.removeItem(product.id)}
-              >
-                Supprimer
-              </Button>
+              <>
+                <Badge>Quantité : {product.quantity}</Badge>
+                <Button
+                  variant="destructive"
+                  onClick={() => cart.removeItem(product.id)}
+                >
+                  Supprimer
+                </Button>
+              </>
             ) : (
               <Button
                 variant="destructive"
