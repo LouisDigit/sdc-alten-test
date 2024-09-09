@@ -20,6 +20,7 @@ export class ProductRepository implements IProductRepository {
       const response = await apiClient.get("/products");
       return response.data;
     } catch (e) {
+      // TODO : create custom error
       throw new Error("Products fetch failed.");
     }
   }
@@ -29,6 +30,7 @@ export class ProductRepository implements IProductRepository {
       const response = await apiClient.delete(`/products/${id}`);
       return response.data;
     } catch (e) {
+      // TODO : create custom error
       throw new Error("Product delete failed.");
     }
   }
@@ -38,6 +40,7 @@ export class ProductRepository implements IProductRepository {
       const response = await apiClient.put(`/products/${id}`, product);
       return response.data;
     } catch (e) {
+      // TODO : create custom error
       throw new Error("Product update failed.");
     }
   }

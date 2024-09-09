@@ -25,6 +25,10 @@ const useCart = create(
           return true;
         }
 
+        if (data.inventoryStatus === "OUTOFSTOCK") {
+          return false;
+        }
+
         set({ items: [...get().items, data] });
         return true;
       },
