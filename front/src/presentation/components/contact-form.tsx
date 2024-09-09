@@ -12,8 +12,12 @@ import {
 } from "./ui/form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { Textarea } from "./ui/textarea";
+import { useToast } from "../hooks/use-toast";
 
 const ContactForm = () => {
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof ContactSchema>>({
     resolver: zodResolver(ContactSchema),
     defaultValues: {
@@ -23,7 +27,13 @@ const ContactForm = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof ContactSchema>) => {};
+  const onSubmit = async (values: z.infer<typeof ContactSchema>) => {
+    form.reset();
+    toast({
+      title: "Envoyé",
+      description: "Message envoyé avec succès",
+    });
+  };
 
   return (
     <Form {...form}>
@@ -38,7 +48,7 @@ const ContactForm = () => {
             <FormItem>
               <FormLabel>Objet</FormLabel>
               <FormControl>
-                <Input placeholder="objet..." {...field} />
+                <Input placeholder="objet..." required {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -51,7 +61,12 @@ const ContactForm = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="email..." {...field} />
+                <Input
+                  type="email"
+                  placeholder="email..."
+                  required
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -64,7 +79,7 @@ const ContactForm = () => {
             <FormItem>
               <FormLabel>Message</FormLabel>
               <FormControl>
-                <Input placeholder="message..." {...field} />
+                <Textarea placeholder="message..." {...field} maxLength={300} />
               </FormControl>
               <FormMessage />
             </FormItem>
