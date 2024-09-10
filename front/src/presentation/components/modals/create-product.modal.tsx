@@ -1,6 +1,6 @@
 "use client";
 import * as z from "zod";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 import { Modal } from "@/presentation/components/ui/modal";
 import { Button } from "@/presentation/components/ui/button";
@@ -16,6 +16,9 @@ import { useForm } from "react-hook-form";
 import { ProductInsertSchema } from "@/domain/models/product";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
+import { ProductController } from "@/presentation/controllers/ProductController";
+import { ProductRepository } from "@/infrastructure/repositories/product-repository";
+import { useToast } from "@/presentation/hooks/use-toast";
 
 interface CreateProductModalProps {
   isOpen: boolean;
@@ -29,6 +32,9 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
   loading,
 }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
+  const productController = new ProductController();
+  const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof ProductInsertSchema>>({
     resolver: zodResolver(ProductInsertSchema),
@@ -40,7 +46,24 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof ProductInsertSchema>) => {};
+  const onSubmit = async (values: z.infer<typeof ProductInsertSchema>) => {
+    startTransition(() => {
+      try {
+        productController.createProduct(values);
+        toast({
+          title: "Ajouté",
+          description: "Produit ajouté au catalogue",
+        });
+        onClose();
+      } catch (e) {
+        toast({
+          title: "Erreur",
+          description:
+            "Une erreur s'est produite lors de la suppression du produit",
+        });
+      }
+    });
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -68,7 +91,7 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
                     <FormLabel>Name</FormLabel>
                     <FormControl>
                       <Input
-                        disabled={loading}
+                        disabled={isPending}
                         placeholder="name..."
                         {...field}
                       />
@@ -86,7 +109,7 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
                     <FormControl>
                       <Input
                         type="number"
-                        disabled={loading}
+                        disabled={isPending}
                         placeholder="price..."
                         {...field}
                       />
@@ -103,7 +126,7 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
                     <FormLabel>Description</FormLabel>
                     <FormControl>
                       <Input
-                        disabled={loading}
+                        disabled={isPending}
                         placeholder="description..."
                         {...field}
                       />
@@ -120,7 +143,7 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
                     <FormLabel>Category</FormLabel>
                     <FormControl>
                       <Input
-                        disabled={loading}
+                        disabled={isPending}
                         placeholder="category..."
                         {...field}
                       />
@@ -130,10 +153,14 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
                 )}
               />
               <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-                <Button disabled={loading} variant="outline" onClick={onClose}>
+                <Button
+                  disabled={isPending}
+                  variant="outline"
+                  onClick={onClose}
+                >
                   Cancel
                 </Button>
-                <Button disabled={loading} type="submit">
+                <Button disabled={isPending} type="submit">
                   Continue
                 </Button>
               </div>

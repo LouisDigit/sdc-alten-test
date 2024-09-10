@@ -1,13 +1,25 @@
 import { IProductRepository } from "@/application/repositories/product-repository.interface";
 import { Product, ProductInsert, ProductUpdate } from "@/domain/models/product";
 import { apiClient } from "../api/client";
+import { generateRandomString } from "../utils/random";
 
 export class ProductRepository implements IProductRepository {
   constructor() {}
 
   async createProduct(product: ProductInsert): Promise<Product> {
     try {
-      const response = await apiClient.post("/products", product);
+      const response = await apiClient.post("/products", {
+        ...product,
+        price: Number(product.price),
+        image: product.name + ".jpg",
+        createdAt: Number(new Date()),
+        updatedAt: Number(new Date()),
+        shellId: 15,
+        internalReference: "REF-123-456",
+        inventoryStatus: "INSTOCK",
+        rating: Math.floor(Math.random() * 6),
+        code: generateRandomString(9),
+      });
       return response.data;
     } catch (e) {
       // TODO : create custom error
