@@ -8,7 +8,7 @@
 - COMMAND : npx prisma db push (crée vos différents tables SQL sur votre base de donnée locale)
 - COMMAND : npm run dev (lance votre API REST sur le port 3000)
 
-L'API contient des tests automatisés executable avec la commande : npm run test
+L'API contient des tests automatisés executable avec la commande : npm run test\\
 Une collection POSTMAN est également à disposition au niveau de la racine du projet
 
 ## Fonctionnalités
@@ -37,8 +37,8 @@ Une collection POSTMAN est également à disposition au niveau de la racine du p
 - Affichage du nombre d'exemplaire du produit dans le panier
 - Affichage complet du panier via une modale
 
-### Partie 2
+### Partie 2 : Contact
 
 - Section contact dans la barre latérale de navigation
 - Page de contact avec un formulaire
-- Envoie d'email (simulation) avec un message de reception confirmé
+- Envoi d'email (simulation) avec un message de reception confirmé
