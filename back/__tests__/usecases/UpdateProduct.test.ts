@@ -26,8 +26,8 @@ describe("UpdateProduct UseCase", () => {
       shellId: 1,
       inventoryStatus: "INSTOCK" as const,
       rating: 4,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: Number(new Date()),
+      updatedAt: Number(new Date()),
     };
 
     const updatedData = { name: "Updated Product" };

@@ -26,8 +26,8 @@ describe("CreateProduct UseCase", () => {
       shellId: 1,
       inventoryStatus: "INSTOCK" as const,
       rating: 4,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: Number(new Date()),
+      updatedAt: Number(new Date()),
     };
 
     // Mock the return value of the create method
@@ -53,8 +53,8 @@ describe("CreateProduct UseCase", () => {
       shellId: 1,
       inventoryStatus: "INSTOCK" as const,
       rating: 4,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: Number(new Date()),
+      updatedAt: Number(new Date()),
     };
 
     // Mock an error thrown by the create method

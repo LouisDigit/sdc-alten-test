@@ -11,7 +11,7 @@ const mockProductRepository: jest.Mocked<IProductRepository> = {
 };
 
 describe("DeleteProduct UseCase", () => {
-  it("should delete a product", async () => {
+  it("should delete a product", async (id: number) => {
     mockProductRepository.delete.mockResolvedValue();
 
     const deleteProductUseCase = new DeleteProduct(mockProductRepository);
