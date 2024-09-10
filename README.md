@@ -1,79 +1,44 @@
-# Consignes
+# Back-end
 
-- Vous êtes développeur front-end : vous devez réaliser les consignes décrites dans le chapitre [Front-end](#Front-end)
+## Configuration
 
-- Vous êtes développeur back-end : vous devez réaliser les consignes décrites dans le chapitre [Back-end](#Back-end) (*)
+- COMMAND : npm install --save (installation des dépendances)
+- Renseigner la variable d'environnement "DATABASE_URL" pour y connecter votre base de donnée MySQL locale
+- COMMAND : npx prisma generate (génère les schémas PRISMA)
+- COMMAND : npx prisma db push (crée vos différents tables SQL sur votre base de donnée locale)
+- COMMAND : npm run dev (lance votre API REST sur le port 3000)
 
-- Vous êtes développeur full-stack : vous devez réaliser les consignes décrites dans le chapitre [Front-end](#Front-end) et le chapitre [Back-end](#Back-end) (*)
+(_) L'API contient des tests automatisés executable avec la commande : npm run test
+(_) Une collection POSTMAN est également à disposition au niveau de la racine du projet
 
-(*) Afin de tester votre API, veuillez proposer une stratégie de test appropriée.
+## Fonctionnalités
 
-## Front-end
+- Créer un produit : POST /api/products
+- Obtenir un produit avec son id : GET /api/products/:id
+- Obtenir l'ensemble des produits : GET /api/products
+- Mettre à jour un produit : PATCH /api/products/:id
+- Supprimer un produit : DELETE /api/products/id
 
-Le site de e-commerce d'Alten a besoin de s'enrichir de nouvelles fonctionnalités.
+# Front-end
+
+## Configuration
+
+- COMMAND : npm install --save (installation des dépendances)
+- Renseigner la variable d'environnement "REACT_APP_API_BASE_URL" pour y connecter l'API Rest (assurez vous qu'elle soit en cours d'execution)
+- COMMAND : npm run dev (lance votre application react sur le port 5173)
+
+## Fonctionnalités
 
 ### Partie 1 : Shop
 
-- Afficher toutes les informations pertinentes d'un produit sur la liste
-- Permettre d'ajouter un produit au panier depuis la liste 
-- Permettre de supprimer un produit du panier
-- Afficher un badge indiquant la quantité de produits dans le panier
-- Permettre de visualiser la liste des produits qui composent le panier.
+- Affiche les informations pertinentes d'un produit (Catégorie, nom, note, état de stock, prix)
+- Ajouter dynamiquement un produit dans le panier
+- Supprimer un produit du panier via son interface
+- Affichage du nombre d'exemplaire du produit dans le panier
+- Affichage complet du panier via une modale
 
 ### Partie 2
 
-- Créer un nouveau point de menu dans la barre latérale ("Contact")
-- Créer une page "Contact" affichant un formulaire
-- Le formulaire doit permettre de saisir son email, un message et de cliquer sur "Envoyer"
-- Email et message doivent être obligatoirement remplis, message doit être inférieur à 300 caractères.
-- Quand le message a été envoyé, afficher un message à l'utilisateur : "Demande de contact envoyée avec succès".
-
-### Bonus : 
-
-- Ajouter un système de pagination et/ou de filtrage sur la liste des produits
-- On doit pouvoir visualiser et ajuster la quantité des produits depuis la liste et depuis le panier 
-
-## Back-end
-
-Développer un back-end permettant la gestion de produits définis plus bas.
-Vous pouvez utiliser la technologie de votre choix parmi la liste suivante :
-
-- Node.js/Express
-- Java/Spring Boot
-- C#/.net Core
-- PHP/Symphony
-
-
-Le back-end doit gérer les API suivantes : 
-
-| Resource           | POST                  | GET                            | PATCH                                    | PUT | DELETE           |
-| ------------------ | --------------------- | ------------------------------ | ---------------------------------------- | --- | ---------------- |
-| **/products**      | Create a new product  | Retrieve all products          | X                                        | X   |     X            |
-| **/products/:id**  | X                     | Retrieve details for product 1 | Update details of product 1 if it exists | X   | Remove product 1 |
-
-Un produit a les caractéristiques suivantes : 
-
-``` typescript
-class Product {
-  id: number;
-  code: string;
-  name: string;
-  description: string;
-  image: string;
-  category: string;
-  price: number;
-  quantity: number;
-  internalReference: string;
-  shellId: number;
-  inventoryStatus: "INSTOCK" | "LOWSTOCK" | "OUTOFSTOCK";
-  rating: number;
-  createdAt: number;
-  updatedAt: number;
-}
-```
-
-Le back-end créé doit pouvoir gérer les produits dans une base de données SQL/NoSQL ou dans un fichier json.
-
-## Bonus
-
-Vous pouvez ajouter des tests Postman ou Swagger pour valider votre API
+- Section contact dans la barre latérale de navigation
+- Page de contact avec un formulaire
+- Envoie d'email (simulation) avec un message de reception confirmé

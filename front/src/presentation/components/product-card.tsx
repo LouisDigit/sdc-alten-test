@@ -48,7 +48,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     } else {
       toast({
         title: "Non ajouté",
-        description: "Produit déjà dans le panier ou en rupture de stock",
+        description: "Produit en rupture de stock",
       });
     }
   };
