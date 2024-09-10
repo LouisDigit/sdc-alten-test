@@ -58,8 +58,7 @@ export const CreateProductModal: React.FC<CreateProductModalProps> = ({
       } catch (e) {
         toast({
           title: "Erreur",
-          description:
-            "Une erreur s'est produite lors de la suppression du produit",
+          description: "Une erreur s'est produite lors de l'ajout du produit",
         });
       }
     });

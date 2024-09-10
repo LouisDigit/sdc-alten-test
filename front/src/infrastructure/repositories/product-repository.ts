@@ -27,6 +27,16 @@ export class ProductRepository implements IProductRepository {
     }
   }
 
+  async getProductById(id: number): Promise<Product> {
+    try {
+      const response = await apiClient.get(`/products/${id}`);
+      return response.data;
+    } catch (e) {
+      // TODO : create custom error
+      throw new Error("Product fetch failed.");
+    }
+  }
+
   async getProducts(): Promise<Product[]> {
     try {
       const response = await apiClient.get("/products");
@@ -49,9 +59,13 @@ export class ProductRepository implements IProductRepository {
 
   async updateProduct(id: number, product: ProductUpdate): Promise<Product> {
     try {
-      const response = await apiClient.put(`/products/${id}`, product);
+      const response = await apiClient.patch(`/products/${id}`, {
+        ...product,
+        price: Number(product.price),
+      });
       return response.data;
     } catch (e) {
+      console.log(e);
       // TODO : create custom error
       throw new Error("Product update failed.");
     }

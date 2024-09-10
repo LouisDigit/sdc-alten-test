@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { ProductController } from "@/presentation/controllers/ProductController";
+import { useToast } from "@/presentation/hooks/use-toast";
 
 interface UpdateProductModalProps {
   isOpen: boolean;
@@ -42,6 +43,7 @@ export const UpdateProductModal: React.FC<UpdateProductModalProps> = ({
 }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
   const productController = new ProductController();
 
   const form = useForm<z.infer<typeof ProductUpdateSchema>>({
@@ -57,8 +59,20 @@ export const UpdateProductModal: React.FC<UpdateProductModalProps> = ({
 
   const onSubmit = async (values: z.infer<typeof ProductUpdateSchema>) => {
     startTransition(() => {
-      console.log(values);
-      productController.updateProduct(product.id, values);
+      try {
+        productController.updateProduct(product.id, values);
+        toast({
+          title: "Modifié",
+          description: "Produit modifié du catalogue",
+        });
+        onClose();
+      } catch (e) {
+        toast({
+          title: "Erreur",
+          description:
+            "Une erreur s'est produite lors de la modification du produit",
+        });
+      }
     });
 
     onClose();
@@ -158,7 +172,12 @@ export const UpdateProductModal: React.FC<UpdateProductModalProps> = ({
                   <FormItem>
                     <FormLabel>Statut inventaire</FormLabel>
                     <FormControl>
-                      <Select disabled={isPending} {...field}>
+                      <Select
+                        disabled={isPending}
+                        {...field}
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Statut inventaire" />
                         </SelectTrigger>
