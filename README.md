@@ -8,8 +8,8 @@
 - COMMAND : npx prisma db push (crée vos différents tables SQL sur votre base de donnée locale)
 - COMMAND : npm run dev (lance votre API REST sur le port 3000)
 
-(_) L'API contient des tests automatisés executable avec la commande : npm run test
-(_) Une collection POSTMAN est également à disposition au niveau de la racine du projet
+L'API contient des tests automatisés executable avec la commande : npm run test
+Une collection POSTMAN est également à disposition au niveau de la racine du projet
 
 ## Fonctionnalités
 
@@ -17,7 +17,7 @@
 - Obtenir un produit avec son id : GET /api/products/:id
 - Obtenir l'ensemble des produits : GET /api/products
 - Mettre à jour un produit : PATCH /api/products/:id
-- Supprimer un produit : DELETE /api/products/id
+- Supprimer un produit : DELETE /api/products/:id
 
 # Front-end
 
