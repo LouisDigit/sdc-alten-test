@@ -6,6 +6,7 @@
 - Renseigner la variable d'environnement "DATABASE_URL" pour y connecter votre base de donnée MySQL locale
 - COMMAND : npx prisma generate (génère les schémas PRISMA)
 - COMMAND : npx prisma db push (crée vos différents tables SQL sur votre base de donnée locale)
+- COMMAND : npm run seed (lance le seeder qui ajoute les données du .json sur votre database)
 - COMMAND : npm run dev (lance votre API REST sur le port 3000)
 
 L'API contient des tests automatisés executable avec la commande : npm run test\\
