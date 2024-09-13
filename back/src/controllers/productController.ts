@@ -1,4 +1,3 @@
-// src/controllers/ProductController.ts
 import { Request, Response } from "express";
 import { PrismaProductRepository } from "../infrastructure/prisma/PrismaProductRepository";
 import { CreateProduct } from "../usecases/CreateProduct";

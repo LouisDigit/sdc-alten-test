@@ -2,6 +2,7 @@ import { IProductRepository } from "@/application/repositories/product-repositor
 import { Product, ProductInsert, ProductUpdate } from "@/domain/models/product";
 import { apiClient } from "../api/client";
 import { generateRandomString } from "../utils/random";
+import { ApiOperationError, NotFoundError } from "@/domain/errors/common";
 
 export class ProductRepository implements IProductRepository {
   constructor() {}
@@ -22,8 +23,7 @@ export class ProductRepository implements IProductRepository {
       });
       return response.data;
     } catch (e) {
-      // TODO : create custom error
-      throw new Error("Product create failed.");
+      throw new ApiOperationError("Product create failed.");
     }
   }
 
@@ -32,8 +32,7 @@ export class ProductRepository implements IProductRepository {
       const response = await apiClient.get(`/products/${id}`);
       return response.data;
     } catch (e) {
-      // TODO : create custom error
-      throw new Error("Product fetch failed.");
+      throw new NotFoundError("Product fetch failed.");
     }
   }
 
@@ -42,8 +41,7 @@ export class ProductRepository implements IProductRepository {
       const response = await apiClient.get("/products");
       return response.data;
     } catch (e) {
-      // TODO : create custom error
-      throw new Error("Products fetch failed.");
+      throw new NotFoundError("Products fetch failed.");
     }
   }
 
@@ -52,8 +50,7 @@ export class ProductRepository implements IProductRepository {
       const response = await apiClient.delete(`/products/${id}`);
       return response.data;
     } catch (e) {
-      // TODO : create custom error
-      throw new Error("Product delete failed.");
+      throw new ApiOperationError("Product delete failed.");
     }
   }
 
@@ -65,9 +62,8 @@ export class ProductRepository implements IProductRepository {
       });
       return response.data;
     } catch (e) {
-      console.log(e);
       // TODO : create custom error
-      throw new Error("Product update failed.");
+      throw new ApiOperationError("Product update failed.");
     }
   }
 }
